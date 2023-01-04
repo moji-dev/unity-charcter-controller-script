@@ -9,14 +9,18 @@ public class camera_controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-          float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitivity;
+
+        mouseX = Matf.clamp(mouseX, -90f, 90f);
 
         transform.localRotation *= Quaternion.Euler(-mouseY, mouseX, 0);
         
