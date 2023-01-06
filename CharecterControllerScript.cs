@@ -6,6 +6,7 @@ public class CharecterControllerScript : MonoBehaviour
 {
     public float speed = 5.0f;
     public Transform orientation;
+    public float jumpForce = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +32,12 @@ public class CharecterControllerScript : MonoBehaviour
 
     // Apply the movement direction to the player's position
     transform.Translate(movementDirection * speed * sprintMultiplier * Time.deltaTime);
+
+    // Check if the space key is being pressed
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        // Apply an upward force to the player's rigidbody
+        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
 }
 }
