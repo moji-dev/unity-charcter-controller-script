@@ -8,6 +8,8 @@ public class camera_controller : MonoBehaviour
     float xrot = 0.0f;
     float yrot = 0.0f;
 
+    public Transform orientation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,15 +21,23 @@ public class camera_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitivity * Time.deltaTime;
+        
+    float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity * Time.deltaTime;
+    float mouseY = Input.GetAxisRaw("Mouse Y") * sensitivity * Time.deltaTime;
 
-        yrot += mouseX;
-        xrot += mouseY;
+    yrot += mouseX*1.5f;
+    xrot += mouseY*1.5f;
 
-        xrot = Mathf.Clamp(xrot, -90f, 90f);
+    xrot = Mathf.Clamp(xrot, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(-xrot, yrot, 0);
+    transform.localRotation = Quaternion.Euler(-xrot, yrot, 0);
+    orientation.rotation = Quaternion.Euler(0, yrot, 0);
+
+    // Set the player's rotation to match the orientation Transform
+    GameObject player = GameObject.FindWithTag("Player");
+    player.transform.rotation = orientation.rotation;
+        
+       
 
         
     }
